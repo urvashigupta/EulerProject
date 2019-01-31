@@ -32,8 +32,8 @@ The algorithm is actually quite simple to understand.
 We start by creating a marker to indicate whether a number is prime or not. In my case, I used a boolean array.
 We initialize the array to be true, so all numbers are considered prime.
 Then, iterate from i = 2... square root of n (or until i*i is less than n)
-And for each number which is a prime, initially 2 is the first prime,
-we find all multiples of 2 until n, and set them to false as they are composite numbers.
+And for each number which is a prime, initially 2 is the first prime, we find all multiples of 2 until n, 
+and set them to false as they are composite numbers.
 Then iterate over the array again and sum all the prime numbers.
 
 Runtime:
@@ -110,8 +110,7 @@ I had previously written this logic using the help of leetcode:
 https://leetcode.com/problems/permutations-ii/
 
 3) Generating Valid List: Once, all the permutations are created, we have to check which ones are prime,
-if we find them in the hashset,
-we add them to a valid list. This valid list is used to find the difference.
+if we find them in the hashset,we add them to a valid list. This valid list is used to find the difference.
 
 4) Generate result: We iterate over the valid list and get the difference of each number with every other number.
 Whenever two differences match, we have found our result.
