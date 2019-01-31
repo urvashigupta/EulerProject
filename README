@@ -1,0 +1,130 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~General Information~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There were a few functions which were used in both problems 10 and 49.
+So I created a PrimeHelper class and some functions are added there.
+
+All the programs below ran in less than 40 ms. My computer configuration is as follows:
+Processor: 2.3 GHz Intel Core i5
+Memory: 8 GB
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Problem 10~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Problem 10: Summation of Primes (PrimeSummation.java)
+Problem Statement: In this problem, we are asked to find the sum of all prime numbers less than a given number (2000000)
+
+Sample output: 17 for n = 10
+               142913828922 for n = 2000000
+
+Why I chose this problem:
+I chose this problem because I really wanted to try attempting a problem number >= 10.
+It sounded quite straight forward to me. All you need to do is find all primes and then add them.
+Little did I know, the amount of time it takes.
+
+Process I followed:
+    I started off by writing a simple brute force solution PrimeSummationUnOptimized.java
+We iterate from i = 2..n and for every value of i, we check if its a prime number. If it is we add it.
+In order to check for a prime number, we need to run another loop from j = 2..i and no numbers should fully divide i.
+This code ran well up to n = 80000. Beyond that there was a lot of lag and the code needed optimization.
+    I then searched to find an optimized version of how to determine if a number is prime, and found this Khan Academy video:
+https://www.khanacademy.org/computing/computer-science/cryptography/comp-number-theory/v/sieve-of-eratosthenes-prime-adventure-part-4
+With the help of the illustrations in the video, I used the Sieve of Eratosthenes (which sounded extremely scary at first)
+The algorithm is actually quite simple to understand.
+We start by creating a marker to indicate whether a number is prime or not. In my case, I used a boolean array.
+We initialize the array to be true, so all numbers are considered prime.
+Then, iterate from i = 2... square root of n (or until i*i is less than n)
+And for each number which is a prime, initially 2 is the first prime,
+we find all multiples of 2 until n, and set them to false as they are composite numbers.
+Then iterate over the array again and sum all the prime numbers.
+
+Runtime:
+The code runs in less than 35ms for most trials.
+
+Reference Used:
+https://www.khanacademy.org/computing/computer-science/cryptography/comp-number-theory/v/sieve-of-eratosthenes-prime-adventure-part-4
+
+Time taken: ~ 40 minutes (30 minutes to understand and implement the optimized algorithm and
+                          10 minutes to test different inputs and write tests)
+
+Codes:
+PrimeSummation.java
+PrimeSummationTest.java
+PrimeSummationUnOptimized.java (brute force version)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Problem 29~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Problem 29: Number Of Distinct Powers (DistinctPowers.java)
+Problem Statement: In this problem, we are asked to find number of distinct powers for a^b
+                    where 2 <= a <= 100 and 2 <= b <= 100
+
+Sample output: 15 for range = 2...5
+               9183 for range = 2...100
+
+Why I chose this problem:
+The reason I decided to attempt this problem was because by reading 'distinct' in the title, I felt the correct data structure
+could potentially have an input in making the algorithm faster and wanted to test if that infact is true.
+
+Process I followed:
+I started off by writing a simple brute force solution.
+We have two for loops each of which runs from lower and upper bounds (low, high)
+We calculate the power for each pair and store it in the hash set.
+We then return the size of the has set to indicate distinct terms.
+I also returned -1 for cases where low is not less than equal to high.
+
+Runtime:
+The code runs in less than 10ms for most trials.
+I did pay around with lists instead of sets to store the numbers, and it increases the runtime to about 800ms.
+I think the learning to take away from this, is that the implementation of the data structure matters for execution speed.
+
+Time taken: ~ 15 minutes (10 minutes to implement algorithm and
+                           5 minutes for tests)
+
+Codes:
+DistinctPowers.java
+DistinctPowersTest.java
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Problem 49~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Problem 49: Prime Permutations (PrimePermutations.java)
+Problem Statement (copied from https://projecteuler.net/problem=49):
+The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases by 3330, is unusual in two ways:
+    (i) each of the three terms are prime, and, (ii) each of the 4-digit numbers are permutations of one another.
+There is one other 4-digit increasing sequence.
+What 12-digit number do you form by concatenating the three terms in this sequence?
+
+Output: 296962999629
+
+Why I chose this problem:
+There are two reasons why I chose this problem.
+One, the problem seemed similar to problem 10 where you have to find prime numbers.
+Two, I had very recently written code for finding all permutations of a number.
+Hence, I thought I could combine the two codes and try to get the answer.
+
+Process I followed:
+1) Generating prime numbers: I started by writing the code for generating the 4 digit prime numbers since I had just learnt
+how to do it in problem 10. Using the knowledge from problem 29, I remembered lookup times are reduced to O(1) using hash sets.
+So I added all the 4-digit prime numbers to a hash set.
+
+2) Generate Permutations: Next, I started iterating over hash set, and for every number,
+we generate the permutations using backtracking.
+I had previously written this logic using the help of leetcode:
+https://leetcode.com/problems/permutations-ii/
+
+3) Generating Valid List: Once, all the permutations are created, we have to check which ones are prime,
+if we find them in the hashset,
+we add them to a valid list. This valid list is used to find the difference.
+
+4) Generate result: We iterate over the valid list and get the difference of each number with every other number.
+Whenever two differences match, we have found our result.
+
+Runtime:
+The code runs in less than 60ms for most trials.
+
+Reference Used:
+https://leetcode.com/problems/permutations-ii/
+
+Time taken: ~ 2 hour and 30 minutes
+
+Codes:
+PrimePermutations.java
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
